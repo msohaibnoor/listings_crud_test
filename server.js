@@ -8,7 +8,7 @@
 * 
 *  Name: Arik Hassan | Student ID: 150 398 204 | Date: 2024/09/13
 *
-*  Published URL: ___________________________________________________________
+*  Published URL: https://web-422-assignment1-pi.vercel.app/
 *
 ********************************************************************************/
 
@@ -41,7 +41,20 @@ app.get('/', (req, res) => {
 
 // POST route /api/listings
 app.post('/api/listings', async(req, res) =>{
-    res.status(200).json({ message: "Adding a listing" });
+   try{
+    const listingData = req.body;
+
+    const newListing = await db.addNewListing(listingData);
+
+    res.status(201).json({
+        message: "Added Listing Successfully",
+        listing: newListing
+    });
+
+   } catch (error)
+   {
+        res.status(500).json({message: "Error: Unable to add listing", error: error.message})
+   }
 });
 
 // GET route /api/listings
@@ -76,4 +89,6 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
+
+module.exports = app;
 
