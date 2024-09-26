@@ -47,7 +47,7 @@ app.post('/api/listings', async(req, res) =>{
     const newListing = await db.addNewListing(listingData);
 
     res.status(201).json({
-        message: "Added Listing Successfully",
+        message: "Add Listing Success",
         listing: newListing
     });
 
