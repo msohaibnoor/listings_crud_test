@@ -58,9 +58,15 @@ app.post('/api/listings', async(req, res) =>{
 });
 
 // GET route /api/listings
-app.get("/api/listings", async (req,res)=>{
-    res.status(201).json({ message: "Get listing by page, perPage and string" });
-  });
+  app.get("/api/listings", (req,res) => {
+    db.getAllListings(req.query.page, req.query.perPage)   
+        .then((listings) => {
+            res.status(200).json(listings);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+});
 
 // GET route /api/listings/(_id value)
 app.get("/api/listings/:_id", (req,res) =>{
