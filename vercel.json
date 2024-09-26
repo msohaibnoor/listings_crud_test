@@ -13,7 +13,6 @@
       }
     ],
     "env": {
-      "MONGODB_CONN_STRING": "mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.net/sample_airbnb?retryWrites=true&w=majority&appName=Seneca",
-      "PORT": "8080"
+      "MONGODB_CONN_STRING": "mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.net/sample_airbnb?retryWrites=true&w=majority&appName=Seneca"
     }
   }
