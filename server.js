@@ -18,8 +18,6 @@ const cors = require('cors'); // "require" the cors package
 
 require('dotenv').config(); // require dotenv package
 
-//const { MONGODB_CONN_STRING } = process.env;
-
 const app = express(); // obtain the "app" object
 
 //declare cors (Cross origin resource sharing)
