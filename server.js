@@ -69,6 +69,7 @@ app.post('/api/listings', async(req, res) =>{
 
 // GET route /api/listings
   app.get("/api/listings", (req,res) => {
+    res.send("request for /api/listings");
     db.getAllListings(req.query.page, req.query.perPage)   
         .then((listings) => {
             res.status(200).json(listings);
