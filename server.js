@@ -77,7 +77,7 @@ app.post('/api/listings', async(req, res) =>{
             res.status(400).json(err);
         });*/
 
-        console.log("Received request for /api/listings");
+        res.send("Received request for /api/listings");
         res.status(200).json({ message: "Test route works" });
 });
 
