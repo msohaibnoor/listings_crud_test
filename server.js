@@ -34,6 +34,16 @@ const db = new ListingsDB();
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
 
 
+/*---------------------------------------------------------------------------------------*/
+//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
+db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
+    app.listen(HTTP_PORT, ()=>{
+        console.log(`server listening on: ${HTTP_PORT}`);
+    });
+}).catch((err)=>{
+    console.log(err);
+});
+
 // GET ROUTE /
 app.get('/', (req, res) => {
     res.send('API Listening');
@@ -85,16 +95,6 @@ app.delete("/api/listings/:_id", (req,res)=>{
     .catch((err) => { res.status(500).json({error: err}) })
 });
 
-
-/*---------------------------------------------------------------------------------------*/
-//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
-db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`server listening on: ${HTTP_PORT}`);
-    });
-}).catch((err)=>{
-    console.log(err);
-});
 
 module.exports = app;
 
