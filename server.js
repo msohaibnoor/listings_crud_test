@@ -53,7 +53,7 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 
 // GET ROUTE /
 app.get('/', (req, res) => {
-    res.send('API Listening');
+    res.sendFile(__dirname + '/public/index.html');
   });
 
 // POST route /api/listings
