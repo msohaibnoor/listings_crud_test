@@ -14,6 +14,8 @@
 
 
 const express = require('express'); // "require" the Express module
+const app = express(); // obtain the "app" object
+
 const cors = require('cors'); // "require" the cors package
 const mongoose = require('mongoose');
 require('dotenv').config(); // require dotenv package
@@ -25,8 +27,8 @@ mongoose.connect("mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.
     {
         console.log("Connected FAILED!");
     })
-const app = express(); // obtain the "app" object
 
+app.use(express.static('public'));
 //declare cors (Cross origin resource sharing)
 app.use(cors());
 // enable parsing of JSON route requests
