@@ -15,9 +15,16 @@
 
 const express = require('express'); // "require" the Express module
 const cors = require('cors'); // "require" the cors package
-
+const mongoose = require('mongoose');
 require('dotenv').config(); // require dotenv package
 
+mongoose.connect("mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.net/sample_airbnb?retryWrites=true&w=majority&appName=Seneca")
+.then(() => {
+    console.log("Connected to Database!");
+}).catch(()=>
+    {
+        console.log("Connected FAILED!");
+    })
 const app = express(); // obtain the "app" object
 
 //declare cors (Cross origin resource sharing)
