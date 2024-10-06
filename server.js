@@ -51,6 +51,16 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
     console.log(err);
 });
 
+//TEST DB CONNECTION ROUTE
+app.get('/dbstatus', async (req, res) => {
+    try {
+       await mongoose.connection.db.admin().ping();
+       res.status(200).send("MongoDB Connection Successful");
+    } catch (err) {
+       res.status(500).send("MongoDB Connection Failed: " + err.message);
+    }
+ });
+
 // GET ROUTE /
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
