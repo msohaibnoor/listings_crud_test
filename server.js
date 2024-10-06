@@ -52,13 +52,10 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 });
 
 //TEST DB CONNECTION ROUTE
-app.get('/dbstatus', async (req, res) => {
-    try {
-       await mongoose.connection.db.admin().ping();
-       res.status(200).send("MongoDB Connection Successful");
-    } catch (err) {
-       res.status(500).send("MongoDB Connection Failed: " + err.message);
-    }
+app.get('/dbstatus', (req, res) => {
+    const dbState = mongoose.connection.readyState; // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+    const states = ["disconnected", "connected", "connecting", "disconnecting"];
+    res.status(200).send(`MongoDB connection state: ${states[dbState]}`);
  });
 
 // GET ROUTE /
