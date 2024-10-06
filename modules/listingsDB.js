@@ -13,9 +13,11 @@ module.exports = class ListingsDB {
       const db = mongoose.createConnection(connectionString);
 
       db.once('error', (err) => {
+        console.error("Connection error:", err); // ADDED BY ME
         reject(err);
       });
       db.once('open', () => {
+        console.log("Database connection opened successfully.");
         this.Listing = db.model("listing", listingSchema);
         resolve();
       });
