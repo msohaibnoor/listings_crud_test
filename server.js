@@ -60,7 +60,7 @@ app.get('/dbstatus', (req, res) => {
 
 // GET ROUTE /
 app.get('/', (req, res) => {
-    res.json({ message: "API Listening" });
+    res.sendFile(__dirname + '/public/index.html');
   });
 
 // POST route /api/listings
