@@ -22,7 +22,27 @@ const app = express();
 
 
 const { MONGODB_CONN_STRING } = process.env;
-/*mongoose.connect(process.env.MONGODB_CONN_STRING, {
+
+
+
+//Middleware
+
+app.use(cors());
+app.use(express.json());
+
+const HTTP_PORT = process.env.PORT || 8080; // assign a port
+
+const ListingsDB = require("./modules/listingsDB.js");
+const db = new ListingsDB();
+
+
+// GET ROUTE /
+app.get('/', (req, res) => {
+    res.json({ message: "API Listening" });
+  });
+
+/*
+  mongoose.connect(process.env.MONGODB_CONN_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
@@ -35,23 +55,6 @@ const { MONGODB_CONN_STRING } = process.env;
         console.log("Connected FAILED!");
     });
 */
-
-//Middleware
-
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
-const HTTP_PORT = process.env.PORT || 8080; // assign a port
-
-const ListingsDB = require("./modules/listingsDB.js");
-const db = new ListingsDB();
-
-
-// GET ROUTE /
-app.get('/', (req, res) => {
-  /*  res.json({message:"API Listening"}); */
-  res.sendFile(path.join(__dirname, "/index.html"));
-  });
 
 // POST route /api/listings
 app.post('/api/listings', async(req, res) =>{
