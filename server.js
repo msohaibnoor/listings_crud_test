@@ -47,12 +47,6 @@ app.use(express.json());
 const ListingsDB = require("./modules/listingsDB.js");
 const db = new ListingsDB();
 
-//TEST DB CONNECTION ROUTE
-app.get('/dbstatus', (req, res) => {
-    const dbState = mongoose.connection.readyState; // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-    const states = ["disconnected", "connected", "connecting", "disconnecting"];
-    res.status(200).send(`MongoDB connection state: ${states[dbState]}`);
- });
 
 // GET ROUTE /
 app.get('/', (req, res) => {
