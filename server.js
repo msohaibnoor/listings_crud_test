@@ -50,7 +50,8 @@ const db = new ListingsDB();
 
 // GET ROUTE /
 app.get('/', (req, res) => {
-    res.json({message:"API Listening"});
+  /*  res.json({message:"API Listening"}); */
+  res.sendFile(path.join(__dirname, "/index.html"));
   });
 
 // POST route /api/listings
