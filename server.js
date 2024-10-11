@@ -104,7 +104,7 @@ app.put("/api/listings/:_id", (req,res) => {
 app.delete("/api/listings/:_id", (req,res)=>{
     db.deleteListingById(req.params._id)
     .then(() => { res.status(201).json({message: `Deleted listing ${req.params._id}`}) })
-    .catch((err) => { res.status(500).json({error: err}) })
+    .catch((err) => { res.status(500).json({message: "Unable to Delete Listing"}) })
 });
 
 
@@ -117,6 +117,6 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
         console.log(`server listening on: ${HTTP_PORT}`);
     });
 }).catch((err)=>{
-    console.log(err);
+    console.log("DB Connection Failed");
 });
 
