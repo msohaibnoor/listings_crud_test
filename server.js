@@ -115,6 +115,7 @@ module.exports = app;
 db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
     app.listen(HTTP_PORT, ()=>{
         console.log(`server listening on: ${HTTP_PORT}`);
+        console.log("MongoDB Connection String: ", process.env.MONGODB_CONN_STRING);
     });
 }).catch((err)=>{
     console.log("DB Connection Failed");
