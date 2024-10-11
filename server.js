@@ -103,8 +103,6 @@ app.delete("/api/listings/:_id", (req,res)=>{
 });
 
 
-module.exports = app;
-
 /*---------------------------------------------------------------------------------------*/
 //Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
 db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
@@ -116,3 +114,4 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
     console.log("DB Connection Failed");
 });
 
+module.exports = app;
