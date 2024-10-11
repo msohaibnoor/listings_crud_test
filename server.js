@@ -35,15 +35,14 @@ const { MONGODB_CONN_STRING } = process.env;
     });
 */
 
-const HTTP_PORT = process.env.PORT || 8080; // assign a port
-
-
 //Middleware
 app.use(express.static('public'));
 //declare cors (Cross origin resource sharing)
 app.use(cors());
 // enable parsing of JSON route requests
 app.use(express.json());
+
+const HTTP_PORT = process.env.PORT || 8080; // assign a port
 
 const ListingsDB = require("./modules/listingsDB.js");
 const db = new ListingsDB();
