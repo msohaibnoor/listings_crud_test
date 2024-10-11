@@ -13,12 +13,13 @@
 ********************************************************************************/
 
 
-const express = require('express'); // "require" the Express module
-const app = express(); // obtain the "app" object
-
-const cors = require('cors'); // "require" the cors package
+const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config(); // require dotenv package
+require('dotenv').config();
+
+const app = express();
+
 
 const { MONGODB_CONN_STRING } = process.env;
 /*mongoose.connect(process.env.MONGODB_CONN_STRING, {
@@ -36,10 +37,9 @@ const { MONGODB_CONN_STRING } = process.env;
 */
 
 //Middleware
-app.use(express.static('public'));
-//declare cors (Cross origin resource sharing)
+/*app.use(express.static('public'));*/
+
 app.use(cors());
-// enable parsing of JSON route requests
 app.use(express.json());
 
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
