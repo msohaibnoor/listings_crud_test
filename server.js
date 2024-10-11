@@ -20,6 +20,7 @@ const cors = require('cors'); // "require" the cors package
 const mongoose = require('mongoose');
 require('dotenv').config(); // require dotenv package
 
+const { MONGODB_CONN_STRING } = process.env;
 /*mongoose.connect(process.env.MONGODB_CONN_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
