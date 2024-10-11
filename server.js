@@ -38,7 +38,7 @@ const db = new ListingsDB();
 
 // GET ROUTE /
 app.get('/', (req, res) => {
-    res.json({ message: "API Listening" });
+    res.send("API Listening");
   });
 
 /*
