@@ -20,19 +20,24 @@ const cors = require('cors'); // "require" the cors package
 const mongoose = require('mongoose');
 require('dotenv').config(); // require dotenv package
 
-mongoose.connect("mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.net/sample_airbnb?retryWrites=true&w=majority&appName=Seneca", {
+mongoose.connect(process.env.MONGODB_CONN_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
-    keepAliveInitialDelay: 300000 // 5 minutes delay before first ping
-    })
+    keepAliveInitialDelay: 300000
+})
 .then(() => {
     console.log("Connected to Database!");
 }).catch(()=>
     {
         console.log("Connected FAILED!");
-    })
+    });
 
+
+const HTTP_PORT = process.env.PORT || 8080; // assign a port
+
+
+//Middleware
 app.use(express.static('public'));
 //declare cors (Cross origin resource sharing)
 app.use(cors());
@@ -41,20 +46,6 @@ app.use(express.json());
 
 const ListingsDB = require("./modules/listingsDB.js");
 const db = new ListingsDB();
-
-
-const HTTP_PORT = process.env.PORT || 8080; // assign a port
-
-
-/*---------------------------------------------------------------------------------------*/
-//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
-db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`server listening on: ${HTTP_PORT}`);
-    });
-}).catch((err)=>{
-    console.log(err);
-});
 
 //TEST DB CONNECTION ROUTE
 app.get('/dbstatus', (req, res) => {
@@ -118,4 +109,14 @@ app.delete("/api/listings/:_id", (req,res)=>{
 
 
 module.exports = app;
+
+/*---------------------------------------------------------------------------------------*/
+//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
+db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
+    app.listen(HTTP_PORT, ()=>{
+        console.log(`server listening on: ${HTTP_PORT}`);
+    });
+}).catch((err)=>{
+    console.log(err);
+});
 
