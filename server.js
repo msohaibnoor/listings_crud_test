@@ -20,7 +20,7 @@ const cors = require('cors'); // "require" the cors package
 const mongoose = require('mongoose');
 require('dotenv').config(); // require dotenv package
 
-mongoose.connect(process.env.MONGODB_CONN_STRING, {
+/*mongoose.connect(process.env.MONGODB_CONN_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_CONN_STRING, {
     {
         console.log("Connected FAILED!");
     });
-
+*/
 
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
 
