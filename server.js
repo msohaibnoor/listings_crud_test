@@ -37,11 +37,10 @@ const { MONGODB_CONN_STRING } = process.env;
 */
 
 //Middleware
-/*app.use(express.static('public'));*/
 
 app.use(cors());
 app.use(express.json());
-
+app.use(express.static('public'));
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
 
 const ListingsDB = require("./modules/listingsDB.js");
