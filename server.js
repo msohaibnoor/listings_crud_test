@@ -23,8 +23,6 @@ const app = express();
 
 const { MONGODB_CONN_STRING } = process.env;
 
-
-
 //Middleware
 
 app.use(cors());
@@ -41,20 +39,6 @@ app.get('/', (req, res) => {
     res.send("API Listening");
   });
 
-/*
-  mongoose.connect(process.env.MONGODB_CONN_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    keepAlive: true,
-    keepAliveInitialDelay: 300000
-})
-.then(() => {
-    console.log("Connected to Database!");
-}).catch(()=>
-    {
-        console.log("Connected FAILED!");
-    });
-*/
 
 // POST route /api/listings
 app.post('/api/listings', async(req, res) =>{
@@ -88,13 +72,37 @@ app.post('/api/listings', async(req, res) =>{
 });
 
 // GET route /api/listings/(_id value)
-app.get("/api/listings/:_id", (req,res) =>{
-    res.send({message: `get listing with Id: ${req.params._id}`});
+app.get("/api/listings/:_id", async (req,res) =>{
+    
+    try {
+        const listing = await db.getListingById(req.params._id); 
+        if (listing) {
+            res.status(200).json(listing); // Send the listing if found
+        } else {
+            res.status(404).json({ message: "Listing not found" }); // Send error if not found
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error retrieving listing", error: error.message });
+    }
+
 });
 
 // PUT route /api/listings/(_id value)
-app.put("/api/listings/:_id", (req,res) => {
-    res.send({message: `update listing with Id: ${req.params._id}`});
+app.put("/api/listings/:_id", async (req,res) => {
+    try {
+        const updatedData = req.body; // Get updated data from request body
+        const listingId = req.params._id; // Get the ID from request parameters
+
+        // Update the listing in the database
+        const result = await db.updateListingById(updatedData, listingId);
+
+        res.status(200).json({
+            message: `Updated listing with Id: ${listingId}`,
+            result: result
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating listing", error: error.message });
+    }
 });
 
 // DELETE route /api/listings/(_id value)
