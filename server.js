@@ -34,6 +34,18 @@ const ListingsDB = require("./modules/listingsDB.js");
 const db = new ListingsDB();
 
 
+/*---------------------------------------------------------------------------------------*/
+//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
+db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
+    app.listen(HTTP_PORT, ()=>{
+        console.log(`server listening on: ${HTTP_PORT}`);
+        console.log("MongoDB Connection String: ", process.env.MONGODB_CONN_STRING);
+    });
+}).catch((err)=>{
+    console.log("DB Connection Failed");
+});
+
+
 // GET ROUTE /
 app.get('/', (req, res) => {
     res.send("API Listening");
@@ -110,18 +122,6 @@ app.delete("/api/listings/:_id", (req,res)=>{
     db.deleteListingById(req.params._id)
     .then(() => { res.status(201).json({message: `Deleted listing ${req.params._id}`}) })
     .catch((err) => { res.status(500).json({message: "Unable to Delete Listing"}) })
-});
-
-
-/*---------------------------------------------------------------------------------------*/
-//Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
-db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
-    app.listen(HTTP_PORT, ()=>{
-        console.log(`server listening on: ${HTTP_PORT}`);
-        console.log("MongoDB Connection String: ", process.env.MONGODB_CONN_STRING);
-    });
-}).catch((err)=>{
-    console.log("DB Connection Failed");
 });
 
 module.exports = app;
