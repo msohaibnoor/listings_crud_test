@@ -48,7 +48,11 @@ db.initialize(process.env.MONGODB_CONN_STRING).then(()=>{
 
 // GET ROUTE /
 app.get('/', (req, res) => {
-    res.send("API Listening");
+    res.send({
+        msg:"Ser is up and running",
+        connection:process.env.MONGODB_CONN_STRING
+    });
+
   });
 
 
