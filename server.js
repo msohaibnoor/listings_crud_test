@@ -33,18 +33,32 @@ const db = new ListingsDB();
 
 /*---------------------------------------------------------------------------------------*/
 //Start the server on specified port if connection to MONGODB Atlas Cluster is Successful
+// db.initialize(process.env.MONGODB_CONN_STRING)
+//   .then(() => {
+//     app.listen(HTTP_PORT, () => {
+//       console.log(`server listening on: ${HTTP_PORT}`);
+//       console.log(
+//         "MongoDB Connection String: ",
+//         process.env.MONGODB_CONN_STRING
+//       );
+//     });
+//   })
+//   .catch((err) => {
+//     console.log("DB Connection Failed");
+//   });
+
 db.initialize(process.env.MONGODB_CONN_STRING)
   .then(() => {
+    console.log("Database connection successful.");
+
+    // Start the server only after the database connection is established
     app.listen(HTTP_PORT, () => {
-      console.log(`server listening on: ${HTTP_PORT}`);
-      console.log(
-        "MongoDB Connection String: ",
-        process.env.MONGODB_CONN_STRING
-      );
+      console.log(`Server is running on port ${HTTP_PORT}`);
     });
   })
   .catch((err) => {
-    console.log("DB Connection Failed");
+    console.error("Failed to connect to the database:", err);
+    process.exit(1); // Exit the app if the database connection fails
   });
 
 // GET ROUTE /
