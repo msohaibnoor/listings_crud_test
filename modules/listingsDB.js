@@ -53,7 +53,6 @@
 //   }
 // }
 
-
 const mongoose = require("mongoose");
 const listingSchema = require("./listingSchema");
 
@@ -66,22 +65,29 @@ module.exports = class ListingsDB {
 
   async initialize(connectionString) {
     if (!isConnected) {
-      await mongoose.connect(connectionString, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(connectionString);
       this.Listing = mongoose.model("listingsAndReviews", listingSchema);
       isConnected = true;
     }
   }
 
   async addNewListing(data) {
+    if (!isConnected) {
+      await mongoose.connect(connectionString);
+      this.Listing = mongoose.model("listingsAndReviews", listingSchema);
+      isConnected = true;
+    }
     const newListing = new this.Listing(data);
     await newListing.save();
     return newListing;
   }
 
   async getAllListings(page, perPage, name) {
+    if (!isConnected) {
+      await mongoose.connect(connectionString);
+      this.Listing = mongoose.model("listingsAndReviews", listingSchema);
+      isConnected = true;
+    }
     let findBy = name ? { name: { $regex: name, $options: "i" } } : {};
     if (+page && +perPage) {
       return this.Listing.find(findBy, { reviews: 0 })
