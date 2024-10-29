@@ -18,7 +18,7 @@ module.exports = class ListingsDB {
       });
       db.once('open', () => {
         console.log("Database connection opened successfully.");
-        this.Listing = db.model("listing", listingSchema);
+        this.Listing = db.model("listingsAndReviews", listingSchema);
         resolve();
       });
     });
