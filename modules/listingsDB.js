@@ -73,7 +73,7 @@ module.exports = class ListingsDB {
 
   async addNewListing(data) {
     if (!isConnected) {
-      await mongoose.connect(connectionString);
+      await mongoose.connect(process.env.MONGODB_CONN_STRING);
       this.Listing = mongoose.model("listingsAndReviews", listingSchema);
       isConnected = true;
     }
@@ -84,7 +84,7 @@ module.exports = class ListingsDB {
 
   async getAllListings(page, perPage, name) {
     if (!isConnected) {
-      await mongoose.connect(connectionString);
+      await mongoose.connect(process.env.MONGODB_CONN_STRING);
       this.Listing = mongoose.model("listingsAndReviews", listingSchema);
       isConnected = true;
     }
