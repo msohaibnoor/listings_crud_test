@@ -1,7 +1,20 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
+    {
+      "src": "api/listings/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/listings",
+      "dest": "api/listings/index.js"
+    },
+    {
+      "src": "/api/listings/(.*)",
+      "dest": "api/listings/[id].js"
+    }
   ],
   "env": {
     "MONGODB_CONN_STRING": "mongodb+srv://sohaib:sohaib123@devconn.vtg2e.mongodb.net/Fiverr"
