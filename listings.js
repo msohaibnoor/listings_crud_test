@@ -1,4 +1,4 @@
-const ListingsDB = require("../modules/listingsDB");
+const ListingsDB = require("./modules/listingsDB");
 const db = new ListingsDB();
 
 module.exports = async (req, res) => {
