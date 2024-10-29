@@ -17,6 +17,6 @@
     }
   ],
   "env": {
-    "MONGODB_CONN_STRING": "mongodb+srv://arikhassan:arikhassan123@seneca.9z6may5.mongodb.net/sample_airbnb?retryWrites=true&w=majority&appName=Seneca"
+    "MONGODB_CONN_STRING": "mongodb+srv://sohaib:sohaib123@devconn.vtg2e.mongodb.net/Fiverr"
   }
 }
